@@ -1,7 +1,7 @@
 package cn.ech0.examinationsystem.util;
 
 
-import cn.lan.bookstore.enums.CodeEnum;
+import cn.ech0.examinationsystem.enums.CodeEnum;
 
 /**
  * Author : Ech0
