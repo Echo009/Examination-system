@@ -10,7 +10,9 @@ import lombok.Getter;
  */
 @Getter
 public enum  QuestionTypeEnum implements CodeEnum {
-
+    /**
+     * 按枚举值决定试题先后顺序
+     */
 
     SINGLE_SELECT(0,"单选"),
     MULTI_SELECT(1,"多选"),

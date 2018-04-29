@@ -1,4 +1,4 @@
-package cn.ech0.examinationsystem.dao;
+package cn.ech0.examinationsystem.dto;
 
 import lombok.Data;
 

@@ -18,6 +18,7 @@ public enum  BaseCategoryEnum implements CodeEnum {
     MATH_LOGIC(3,"数学和逻辑"),
     COMPUTER_BASE(4,"计算机基础"),
     SOFTWARE_DEV(5,"软件开发"),
+    COMPOSITE(6, "综合"),
     ;
 
     private Integer code;

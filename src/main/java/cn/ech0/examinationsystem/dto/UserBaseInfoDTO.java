@@ -13,7 +13,7 @@ import lombok.Data;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class UserBaseInfoDTO {
 
-    private Long userId;
+    private String userId;
 
     private String userName;
 

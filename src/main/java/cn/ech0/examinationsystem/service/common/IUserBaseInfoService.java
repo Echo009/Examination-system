@@ -1,9 +1,9 @@
 package cn.ech0.examinationsystem.service.common;
 
 
-import cn.ech0.examinationsystem.dao.ResultDTO;
+import cn.ech0.examinationsystem.dto.ResultDTO;
 import cn.ech0.examinationsystem.dto.UserBaseInfoDTO;
-import cn.ech0.examinationsystem.entity.UserBaseInfoEntity;
+import cn.ech0.examinationsystem.entity.user.UserBaseInfoEntity;
 
 /**
  * Author : Ech0

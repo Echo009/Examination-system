@@ -1,10 +1,10 @@
 package cn.ech0.examinationsystem.service.common.impl;
 
 
-import cn.ech0.examinationsystem.dao.ResultDTO;
+import cn.ech0.examinationsystem.dto.ResultDTO;
 import cn.ech0.examinationsystem.dao.UserBaseInfoDao;
 import cn.ech0.examinationsystem.dto.UserBaseInfoDTO;
-import cn.ech0.examinationsystem.entity.UserBaseInfoEntity;
+import cn.ech0.examinationsystem.entity.user.UserBaseInfoEntity;
 import cn.ech0.examinationsystem.service.common.IUserBaseInfoService;
 import cn.ech0.examinationsystem.util.Encrypter;
 import lombok.extern.slf4j.Slf4j;
@@ -101,7 +101,7 @@ public class UserBaseInfoServiceImpl implements IUserBaseInfoService {
      */
     @Override
     public UserBaseInfoEntity findUserInfoById(Long id) {
-        return userBaseInfoDao.findById(id);
+        return userBaseInfoDao.findByUserId(id);
     }
 
     @Override

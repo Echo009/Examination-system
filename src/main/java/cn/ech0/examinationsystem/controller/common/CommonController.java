@@ -2,9 +2,9 @@ package cn.ech0.examinationsystem.controller.common;
 
 import cn.ech0.examinationsystem.constant.CookieConstant;
 import cn.ech0.examinationsystem.constant.RedisConstant;
-import cn.ech0.examinationsystem.dao.ResultDTO;
+import cn.ech0.examinationsystem.dto.ResultDTO;
 import cn.ech0.examinationsystem.dto.UserBaseInfoDTO;
-import cn.ech0.examinationsystem.entity.UserBaseInfoEntity;
+import cn.ech0.examinationsystem.entity.user.UserBaseInfoEntity;
 import cn.ech0.examinationsystem.enums.ResponseCodeEnum;
 import cn.ech0.examinationsystem.exception.BaseServerException;
 import cn.ech0.examinationsystem.form.common.UserForm;
@@ -13,6 +13,7 @@ import cn.ech0.examinationsystem.service.common.IUserBaseInfoService;
 import cn.ech0.examinationsystem.util.CookiesUtil;
 import cn.ech0.examinationsystem.util.Encrypter;
 import cn.ech0.examinationsystem.util.JsonUtil;
+import cn.ech0.examinationsystem.util.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,7 @@ public class CommonController {
             UserBaseInfoEntity userBaseInfoEntity = new UserBaseInfoEntity();
             BeanUtils.copyProperties(userForm,userBaseInfoEntity);
             userBaseInfoEntity.setPassword(Encrypter.md5(userForm.getPassword()));
+            userBaseInfoEntity.setUserId(KeyUtil.genUniqueKey());
             userBaseInfoService.register(userBaseInfoEntity);
         }
         return BaseResponse.SUCCESS;
@@ -119,7 +121,7 @@ public class CommonController {
 
             BeanUtils.copyProperties(resultDTO.getData(),userBaseInfoDTO);
             userBaseInfoDTO.setPassword(null);
-            userBaseInfoDTO.setUserId(resultDTO.getData().getId());
+            userBaseInfoDTO.setUserId(resultDTO.getData().getUserId());
             // 将token 以及用户基本信息 写入redis
             String currentUserInfo = JsonUtil.toJson(userBaseInfoDTO, false);
             redisTemplate.opsForValue().set(

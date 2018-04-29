@@ -1,7 +1,7 @@
 package cn.ech0.examinationsystem.dao;
 
 
-import cn.ech0.examinationsystem.entity.UserBaseInfoEntity;
+import cn.ech0.examinationsystem.entity.user.UserBaseInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -16,7 +16,7 @@ public interface UserBaseInfoDao extends JpaRepository<UserBaseInfoEntity, Integ
 
     UserBaseInfoEntity findByUserName(String userName);
 
-    UserBaseInfoEntity findById(Long id);
+    UserBaseInfoEntity findByUserId(Long id);
 
     UserBaseInfoEntity findAllByPhone(Long phone);
 
