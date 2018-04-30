@@ -24,6 +24,7 @@ import javax.persistence.*;
         indexes = {
                 @Index(name = "idx_title", columnList = "title,category"),
         })
+
 public class QuestionEntity {
 
     @Id
@@ -34,7 +35,7 @@ public class QuestionEntity {
 
     private String userName;
 
-    private String category;
+    private Integer category;
 
     private Integer type;
 

@@ -1,5 +1,6 @@
 package cn.ech0.examinationsystem.service.exam;
 
+import cn.ech0.examinationsystem.dto.exam.QuestionDTO;
 import cn.ech0.examinationsystem.entity.exam.QuestionEntity;
 import cn.ech0.examinationsystem.wrapper.QuestionWrapper;
 
@@ -16,7 +17,7 @@ public interface IQuestionService {
      * @param questionId
      * @return
      */
-    QuestionEntity clone(String userId, String userName, Long questionId);
+    QuestionDTO clone(String userId, String userName, Long questionId);
     /**
      * 删除题目,逻辑删除
      * @param userId
@@ -31,14 +32,14 @@ public interface IQuestionService {
      * @param questionEntity
      * @return
      */
-    QuestionEntity update(String userId, QuestionEntity questionEntity);
+    QuestionDTO update(String userId, QuestionEntity questionEntity);
 
     /**
      * 添加题目
      * @param questionEntity
      * @return
      */
-    QuestionEntity add(String userId ,String UserName,QuestionEntity questionEntity);
+    QuestionDTO add(String userId ,String UserName,QuestionEntity questionEntity);
 
     /**
      * 查找属于该用户的所有题目

@@ -1,5 +1,6 @@
 package cn.ech0.examinationsystem.dto.exam;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Data;
  * Time   : 04/29/2018 04:29 PM
  */
 @Data
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class QuestionDTO {
 
 
@@ -35,4 +37,10 @@ public class QuestionDTO {
      * 错误率 保留两位
      */
     private String errorRate;
+
+    private Integer cloneTimes;
+
+    private Integer favoriteTimes;
+
+    private String updateTime;
 }

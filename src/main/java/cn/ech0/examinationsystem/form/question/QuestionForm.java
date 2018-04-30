@@ -16,7 +16,7 @@ public class QuestionForm {
 
     private String userName;
 
-    private String category;
+    private Integer category;
 
     private Integer type;
 

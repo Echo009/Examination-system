@@ -1,5 +1,6 @@
 package cn.ech0.examinationsystem.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Data;
  * @author Ech0
  */
 @Data
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ResultDTO<T> {
     public static final ResultDTO BAD_RESULT = new ResultDTO(false, null);
 

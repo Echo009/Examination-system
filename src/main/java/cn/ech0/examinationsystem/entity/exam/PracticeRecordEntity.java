@@ -16,10 +16,7 @@ import java.util.Date;
 @Data
 @Table(
         uniqueConstraints = {
-                @UniqueConstraint(name = "idx_q", columnNames = {"userId", "type", "title"}),
-        },
-        indexes = {
-                @Index(name = "idx_title", columnList = "title,type"),
+                @UniqueConstraint(name = "idx_q", columnNames = {"userId", "questionId"}),
         })
 public class PracticeRecordEntity {
 

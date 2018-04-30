@@ -22,13 +22,21 @@ public class QuestionValidator {
         if (questionEntity.getType() == null) {
             return new ResultDTO(false, "题目类型不能为空！");
         }
+        if (questionEntity.getCategory() == null) {
+            return new ResultDTO(false, "题目分类不能为空 ！");
+        }
         if (questionEntity.getAnswer() == null) {
             return new ResultDTO(false, "题目答案不能为空 ！");
         }
         // 仅仅包含图片标题的
-        if (questionEntity.getOnlyImgTitle()) {
-            if (questionEntity.getTitleImg() == null) {
-                return new ResultDTO(false, "仅含图片标题时，标题图片不能为空！");
+        if (questionEntity.getOnlyImgTitle() != null && questionEntity.getOnlyImgTitle()) {
+            if (questionEntity.getTitleImgs() == null) {
+                return new ResultDTO(false, "仅含题目图片时，题目图片不能为空！");
+            }
+        } else {
+            // 题目不能为空
+            if (StringUtils.isEmpty(questionEntity.getTitle())) {
+                return new ResultDTO(false, "题目不能为空！");
             }
         }
         ResultDTO<String> resultDTO1;
@@ -63,12 +71,11 @@ public class QuestionValidator {
             // 填空
             case QuestionTypeConstant.GAP_FILLING:
                 int gapCount = 0;
-                ResultDTO resultDTO= GapFillingTitleValidetor.check(questionEntity.getTitle());
+                ResultDTO resultDTO = GapFillingTitleValidetor.check(questionEntity.getTitle());
                 if (!resultDTO.isSuccess()) {
                     return resultDTO;
-                }
-                else {
-                    gapCount = (int)resultDTO.getData();
+                } else {
+                    gapCount = (int) resultDTO.getData();
                 }
                 try {
                     String answer[] = JsonUtil.toBean(questionEntity.getAnswer(), String[].class);
@@ -77,15 +84,14 @@ public class QuestionValidator {
                         return new ResultDTO<>(false, "填空题答案与空数量不一致!");
                     }
                     // 格式化保存
-                    questionEntity.setAnswer(JsonUtil.toJson(answer,false));
+                    questionEntity.setAnswer(JsonUtil.toJson(answer, false));
                 } catch (Exception e) {
                     return new ResultDTO<>(false, "填空题答案格式有误！请使用String数字的json形式！");
                 }
                 break;
             // 问答 以及 代码题
             default:
-                if (StringUtils.isEmpty(questionEntity.getTitle()) ||
-                        StringUtils.isEmpty(questionEntity.getAnswer())) {
+                if (StringUtils.isEmpty(questionEntity.getAnswer())) {
                     return new ResultDTO<>(false, "问答题（编程题）题目和答案不能为空！");
                 }
 

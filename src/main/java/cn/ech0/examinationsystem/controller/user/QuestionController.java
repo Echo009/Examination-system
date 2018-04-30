@@ -38,8 +38,8 @@ public class QuestionController extends BaseController {
 
     @RequestMapping("/clone")
     public BaseResponse clone(Long questionId) {
-        QuestionEntity questionEntity = iQuestionService.clone(getCurrentUserInfo().getUserId(), getCurrentUserInfo().getUserName(), questionId);
-        return new BaseResponse(true, questionEntity);
+        QuestionDTO questionDTO = iQuestionService.clone(getCurrentUserInfo().getUserId(), getCurrentUserInfo().getUserName(), questionId);
+        return new BaseResponse(true, questionDTO);
     }
 
     @RequestMapping("/find")
@@ -57,10 +57,9 @@ public class QuestionController extends BaseController {
     public BaseResponse add(QuestionForm questionForm) {
         QuestionEntity questionEntity = new QuestionEntity();
         BeanUtils.copyProperties(questionForm, questionEntity);
-        questionEntity = iQuestionService.add(
+        QuestionDTO questionDTO = iQuestionService.add(
                 getCurrentUserInfo().getUserId(), getCurrentUserInfo().getUserName(),
                 questionEntity);
-        QuestionDTO questionDTO = QuestionEntityConvertor.convertoQuestionDTO(questionEntity);
         return new BaseResponse(true, questionDTO);
 
     }
@@ -74,8 +73,7 @@ public class QuestionController extends BaseController {
         }
         QuestionEntity questionEntity = new QuestionEntity();
         BeanUtils.copyProperties(questionForm, questionEntity);
-        questionEntity = iQuestionService.update(getCurrentUserInfo().getUserId(), questionEntity);
-        QuestionDTO questionDTO = QuestionEntityConvertor.convertoQuestionDTO(questionEntity);
+        QuestionDTO questionDTO= iQuestionService.update(getCurrentUserInfo().getUserId(), questionEntity);
         return new BaseResponse(true, questionDTO);
 
     }

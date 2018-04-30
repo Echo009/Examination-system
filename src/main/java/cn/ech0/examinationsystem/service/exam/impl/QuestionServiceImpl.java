@@ -12,6 +12,7 @@ import cn.ech0.examinationsystem.service.exam.IQuestionService;
 import cn.ech0.examinationsystem.validate.QuestionValidator;
 import cn.ech0.examinationsystem.wrapper.QuestionWrapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,7 +50,7 @@ public class QuestionServiceImpl implements IQuestionService{
      * @return
      */
     @Override
-    public QuestionEntity clone(String userId, String userName, Long questionId) {
+    public QuestionDTO clone(String userId, String userName, Long questionId) {
         QuestionEntity origin = questionDao.findOne(questionId);
         if (origin == null) {
             throw new BaseServerException(ResponseCodeEnum.VIOLATION_OPERATION.getCode(),
@@ -59,17 +60,28 @@ public class QuestionServiceImpl implements IQuestionService{
             throw new BaseServerException(ResponseCodeEnum.VIOLATION_OPERATION.getCode(),
                     "无法克隆，该题目已被删除 ！");
         }
-        origin.setUserId(userId);
-        origin.setUserName(userName);
-        origin.setCloneFrom(questionId);
+        if (origin.getUserId().equals(userId)) {
+            throw new BaseServerException(ResponseCodeEnum.VIOLATION_OPERATION.getCode(),
+                    "请不要克隆自己的题目 ！");
+        }
+        QuestionEntity questionEntity = new QuestionEntity();
+        BeanUtils.copyProperties(origin,questionEntity);
+        questionEntity.setUserId(userId);
+        questionEntity.setUserName(userName);
+        questionEntity.setCloneFrom(questionId);
 
-        origin.setUseTimes(0L);
-        origin.setErrorTimes(0L);
-        origin.setFavoriteTimes(0);
-        origin.setCloneTimes(0);
-        origin.setId(null);
+        questionEntity.setUseTimes(0L);
+        questionEntity.setErrorTimes(0L);
+        questionEntity.setFavoriteTimes(0);
+        questionEntity.setCloneTimes(0);
+        try {
+            questionEntity = questionDao.saveAndFlush(questionEntity);
+        } catch (Exception e) {
+            throw new BaseServerException(ResponseCodeEnum.VIOLATION_OPERATION.getCode(),
+                    "克隆失败，该题目已存在  ！");
+        }
+        return QuestionEntityConvertor.convertoQuestionDTO(questionEntity);
 
-        return questionDao.saveAndFlush(origin);
     }
 
     /**
@@ -101,7 +113,7 @@ public class QuestionServiceImpl implements IQuestionService{
      * @return
      */
     @Override
-    public QuestionEntity update(String userId, QuestionEntity questionEntity) {
+    public QuestionDTO update(String userId, QuestionEntity questionEntity) {
 
         QuestionEntity origin = questionDao.findOne(questionEntity.getId());
         if (origin == null || origin.getUserId().equals(questionEntity.getUserId())) {
@@ -119,8 +131,8 @@ public class QuestionServiceImpl implements IQuestionService{
         questionEntity.setErrorTimes(origin.getErrorTimes());
         // 更新修改时间
         questionEntity.setUpdateTime(getCurrentDate());
-        return questionDao.saveAndFlush(questionEntity);
-
+        questionEntity = questionDao.saveAndFlush(questionEntity);
+        return QuestionEntityConvertor.convertoQuestionDTO(questionEntity);
     }
 
     /**
@@ -131,7 +143,7 @@ public class QuestionServiceImpl implements IQuestionService{
      * @return
      */
     @Override
-    public QuestionEntity add(String userId,String userName, QuestionEntity questionEntity) {
+    public QuestionDTO add(String userId,String userName, QuestionEntity questionEntity) {
         ResultDTO<String> resultDTO = QuestionValidator.check(questionEntity);
         if (!resultDTO.isSuccess()) {
             throw new BaseServerException(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(), resultDTO.getData());
@@ -140,8 +152,12 @@ public class QuestionServiceImpl implements IQuestionService{
         questionEntity.setCreateTime(getCurrentDate());
         questionEntity.setUpdateTime(getCurrentDate());
         questionEntity.setUserName(userName);
-        return questionDao.saveAndFlush(questionEntity);
-
+        try {
+            questionEntity = questionDao.saveAndFlush(questionEntity);
+        } catch (Exception e) {
+            throw new BaseServerException(ResponseCodeEnum.VIOLATION_OPERATION.getCode(), "该题目已存在，请不要重复添加！");
+        }
+        return QuestionEntityConvertor.convertoQuestionDTO(questionEntity);
     }
 
     /**
@@ -180,7 +196,6 @@ public class QuestionServiceImpl implements IQuestionService{
                         Predicate _type = cb.equal($type, type);
                         predicates.add(_type);
                     }
-
 
                     return cb.and(predicates.toArray(new Predicate[]{}));
                 };
