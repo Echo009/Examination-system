@@ -30,9 +30,4 @@ public enum  BaseCategoryEnum implements CodeEnum {
         this.desc = desc;
     }
 
-    @Override
-    public Integer getCode() {
-        return null;
-    }
-
 }

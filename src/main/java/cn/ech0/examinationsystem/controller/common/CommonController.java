@@ -9,7 +9,7 @@ import cn.ech0.examinationsystem.enums.ResponseCodeEnum;
 import cn.ech0.examinationsystem.exception.BaseServerException;
 import cn.ech0.examinationsystem.form.common.UserForm;
 import cn.ech0.examinationsystem.response.BaseResponse;
-import cn.ech0.examinationsystem.service.common.IUserBaseInfoService;
+import cn.ech0.examinationsystem.service.user.IUserBaseInfoService;
 import cn.ech0.examinationsystem.util.CookiesUtil;
 import cn.ech0.examinationsystem.util.Encrypter;
 import cn.ech0.examinationsystem.util.JsonUtil;

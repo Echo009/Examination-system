@@ -1,6 +1,7 @@
 package cn.ech0.examinationsystem.entity.exam;
 
 
+import cn.ech0.examinationsystem.enums.question.QuestionStatusEnum;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,9 +18,11 @@ import javax.persistence.*;
 @Table(
         uniqueConstraints = {
                 @UniqueConstraint(name = "idx_q", columnNames = {"userId", "type", "title"}),
+                // 同一道题目仅可以克隆一次
+                @UniqueConstraint(name = "idx_clone", columnNames = {"userId", "cloneFrom"}),
         },
         indexes = {
-                @Index(name = "idx_title", columnList = "title,type"),
+                @Index(name = "idx_title", columnList = "title,category"),
         })
 public class QuestionEntity {
 
@@ -31,6 +34,8 @@ public class QuestionEntity {
 
     private String userName;
 
+    private String category;
+
     private Integer type;
 
     private String title;
@@ -38,15 +43,36 @@ public class QuestionEntity {
     private String choices;
 
     private String answer;
-
-    private String titleImg;
+    /**
+     * 是否仅有一个标题图片，如果为true那么titleImg必须有效
+     */
+    private Boolean onlyImgTitle;
+    /**
+     * 可选
+     */
+    private String titleImgs;
+    /**
+     * 可选
+     */
+    private String answerImgs;
+    /**
+     * 原题ID
+     */
+    private Long cloneFrom;
 
     private String createTime;
 
     private String updateTime;
 
-    private Long useTimes;
+    private Long useTimes = 0L;
 
-    private Long errorTimes;
+    private Long errorTimes = 0L;
+
+    private Integer cloneTimes = 0;
+
+    private Integer favoriteTimes = 0;
+
+    private Integer status = QuestionStatusEnum.VALID.getCode();
+
 
 }

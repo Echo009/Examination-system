@@ -11,9 +11,11 @@ import java.util.Date;
  */
 public class DateUtil {
 
+    private static final  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     public static String dateToStamp(String s) throws ParseException {
         String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         Date date = simpleDateFormat.parse(s);
         long ts = date.getTime();
         res = String.valueOf(ts);
@@ -22,10 +24,17 @@ public class DateUtil {
 
     public static String stampToDate(String s){
         String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         long lt = new Long(s);
         Date date = new Date(lt);
         res = simpleDateFormat.format(date);
         return res;
+    }
+
+    public static String formatDate(Date date) {
+        return simpleDateFormat.format(date);
+    }
+
+    public static String getCurrentDate(){
+        return simpleDateFormat.format(new Date());
     }
 }

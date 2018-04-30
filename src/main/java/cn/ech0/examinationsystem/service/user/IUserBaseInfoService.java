@@ -1,4 +1,4 @@
-package cn.ech0.examinationsystem.service.common;
+package cn.ech0.examinationsystem.service.user;
 
 
 import cn.ech0.examinationsystem.dto.ResultDTO;

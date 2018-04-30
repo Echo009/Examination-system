@@ -14,7 +14,6 @@ public enum RoleCodeEnum {
     ADMINISTRATOR(0,"管理员"),
     USER(1,"用户");
 
-
     private Integer code;
     private String roleName;
 

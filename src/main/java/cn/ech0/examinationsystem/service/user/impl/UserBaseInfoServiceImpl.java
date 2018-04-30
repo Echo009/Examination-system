@@ -1,11 +1,11 @@
-package cn.ech0.examinationsystem.service.common.impl;
+package cn.ech0.examinationsystem.service.user.impl;
 
 
 import cn.ech0.examinationsystem.dto.ResultDTO;
-import cn.ech0.examinationsystem.dao.UserBaseInfoDao;
+import cn.ech0.examinationsystem.dao.user.UserBaseInfoDao;
 import cn.ech0.examinationsystem.dto.UserBaseInfoDTO;
 import cn.ech0.examinationsystem.entity.user.UserBaseInfoEntity;
-import cn.ech0.examinationsystem.service.common.IUserBaseInfoService;
+import cn.ech0.examinationsystem.service.user.IUserBaseInfoService;
 import cn.ech0.examinationsystem.util.Encrypter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
