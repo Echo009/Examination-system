@@ -1,6 +1,5 @@
 package cn.ech0.examinationsystem.entity.exam;
 
-import cn.ech0.examinationsystem.enums.question.BaseCategoryEnum;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -35,10 +34,13 @@ public class ExaminationPaperEntity {
      */
     private Integer titleNum;
     /**
-     * 试卷类型
+     * 试卷包含分类
      */
-    private Integer type = BaseCategoryEnum.COMPOSITE.getCode();
-
+    private Integer[] categories;
+    /**
+     * 试卷题型
+     */
+    private Integer[] types ;
     /**
      * 试卷题目
      */
@@ -50,17 +52,19 @@ public class ExaminationPaperEntity {
     /**
      * 由系统自动生成答案,按试题顺序
      */
-    private String[] answer;
+    private String[] answers;
+    /**
+     * 每题的分值
+     */
+    private Integer[] grades;
     /**
      * 使用次数
      */
     private Integer useTimes = 0;
     /**
-     * 错误次数
-     */
-    private Integer errorTimes = 0;
-    /**
      * 平均得分
      */
     private BigDecimal averageGrade = BigDecimal.ZERO;
+
+    private String createTime;
 }

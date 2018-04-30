@@ -40,8 +40,10 @@ public class ExamRecordEntity {
     private Long title ;
 
     private String errorQuestions;
-
-    private Double grade;
+    /**
+     * 得分
+     */
+    private String grade;
     /**
      * 开始时间
      */

@@ -29,6 +29,8 @@ public class PracticeRecordEntity {
 
     private  Long questionId;
 
+    private Integer category;
+
     private Integer useTimes;
 
     private Integer errorTimes;
