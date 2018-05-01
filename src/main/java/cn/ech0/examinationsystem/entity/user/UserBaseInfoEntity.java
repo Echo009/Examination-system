@@ -19,11 +19,13 @@ import javax.persistence.*;
  */
 @Entity
 @Data
-@Table(uniqueConstraints = {
-        @UniqueConstraint(name = "idx_id", columnNames = {"userId"}),
-        @UniqueConstraint(name = "idx_name",columnNames = {"userName"}),
-        @UniqueConstraint(name = "idx_phone",columnNames = {"phone"}),
-})
+@Table(
+        name = "eetu_exam_paper",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "idx_id", columnNames = {"userId"}),
+                @UniqueConstraint(name = "idx_name", columnNames = {"userName"}),
+                @UniqueConstraint(name = "idx_phone", columnNames = {"phone"}),
+        })
 public class UserBaseInfoEntity {
 
     @Id

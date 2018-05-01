@@ -1,19 +1,24 @@
-package cn.ech0.examinationsystem.dto.exam;
+package cn.ech0.examinationsystem.wrapper;
 
+import cn.ech0.examinationsystem.dto.exam.QuestionDTO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author: Ech0
  * Email  : ech0.extreme@foxmail.com
- * Time   : 04/30/2018 03:54 PM
+ * Time   : 05/01/2018 07:13 AM
  */
 @Data
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class ExaminationPaperDTO {
+public class ExamPaperWrapper {
 
+    private Long examRecordId;
+    /**
+     * 试卷id
+     */
     private Long id;
     /**
      * 创建用户,默认为系统
@@ -38,31 +43,12 @@ public class ExaminationPaperDTO {
      */
     private String title;
     /**
-     * 试卷题目列表，按题目类型枚举值排列
-     */
-    private Long[] questions;
-    /**
-     * 每题的分值
-     */
-    private Integer[] grades;
-    /**
      * 考试时长，以分钟计时，超时自动提交
      */
     private Integer maxExamDuration ;
-    /**
-     * 使用次数
-     */
-    private Integer useTimes;
-    /**
-     * 错误次数
-     */
-    private Integer errorTimes;
-    /**
-     * 平均得分
-     */
-    private BigDecimal averageGrade ;
 
-    private String createTime;
+    private List<QuestionDTO> questions;
+
 
 
 }

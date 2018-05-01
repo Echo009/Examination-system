@@ -30,4 +30,15 @@ public class GradeUtil {
 
     }
 
+    public static Integer calTotalGrade(Integer[] grades) {
+        if (grades == null) {
+            return 0;
+        }
+        int total  = 0;
+        for (int i = 0; i < grades.length; i++) {
+            total += grades[i];
+        }
+        return total;
+    }
+
 }

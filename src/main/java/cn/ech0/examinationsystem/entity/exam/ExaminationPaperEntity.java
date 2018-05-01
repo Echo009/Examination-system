@@ -15,11 +15,12 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @Table(
+        name = "eetu_exam_paper",
         uniqueConstraints = {
-                @UniqueConstraint(name = "idx_q", columnNames = {"userId", "type", "title"}),
+                @UniqueConstraint(name = "idx_q", columnNames = {"creatorId",  "title"}),
         },
         indexes = {
-                @Index(name = "idx_title", columnList = "title,type"),
+                @Index(name = "idx_title", columnList = "title"),
         })
 public class ExaminationPaperEntity {
     @Id
@@ -28,7 +29,11 @@ public class ExaminationPaperEntity {
     /**
      * 创建用户,默认为系统
      */
-    private String userId = "System";
+    private String creatorId = "System";
+    /**
+     * 创建人昵称
+     */
+    private String creatorName = "System";
     /**
      * 题目数量
      */
@@ -40,7 +45,7 @@ public class ExaminationPaperEntity {
     /**
      * 试卷题型
      */
-    private Integer[] types ;
+    private Integer[] types;
     /**
      * 试卷题目
      */
@@ -53,10 +58,15 @@ public class ExaminationPaperEntity {
      * 由系统自动生成答案,按试题顺序
      */
     private String[] answers;
+
     /**
      * 每题的分值
      */
     private Integer[] grades;
+    /**
+     * 考试时长，以分钟计时，超时自动提交
+     */
+    private Integer maxExamDuration = 120 ;
     /**
      * 使用次数
      */

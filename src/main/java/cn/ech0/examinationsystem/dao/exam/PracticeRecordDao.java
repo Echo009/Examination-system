@@ -15,6 +15,18 @@ import java.util.List;
  */
 public interface PracticeRecordDao extends JpaRepository<PracticeRecordEntity,Long>,JpaSpecificationExecutor<PracticeRecordEntity>{
 
+
+
+
+
+    /**
+     * 查询特定记录
+     * @param userId
+     * @param questionId
+     * @return
+     */
+    PracticeRecordEntity findByUserIdAndQuestionId(String userId,Long questionId);
+
     /**
      * 查出该用户所有的错题ID
      * @param userId

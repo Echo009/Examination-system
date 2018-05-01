@@ -15,6 +15,7 @@ import java.util.Date;
 @Entity
 @Data
 @Table(
+        name = "eetu_practice_record",
         uniqueConstraints = {
                 @UniqueConstraint(name = "idx_q", columnNames = {"userId", "questionId"}),
         })
@@ -31,14 +32,10 @@ public class PracticeRecordEntity {
 
     private Integer category;
 
-    private Integer useTimes;
+    private Integer useTimes = 1;
 
-    private Integer errorTimes;
-    /**
-     * 错误率 保留两位
-     */
-    private Double errorRate;
+    private Integer errorTimes = 0;
 
-    private Date lastUseTime;
+    private Date lastUseTime = new Date();
 
 }

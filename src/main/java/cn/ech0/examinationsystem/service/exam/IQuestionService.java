@@ -11,6 +11,13 @@ import cn.ech0.examinationsystem.wrapper.QuestionWrapper;
  */
 public interface IQuestionService {
     /**
+     *
+     * @param questionId
+     * @return
+     */
+    QuestionDTO findOne(Long questionId);
+
+    /**
      * 克隆题目
      * @param userId
      * @param userName

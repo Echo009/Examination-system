@@ -1,8 +1,10 @@
 package cn.ech0.examinationsystem.entity.exam;
 
+import cn.ech0.examinationsystem.enums.exam.ExamStatusEnum;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
 /**
@@ -14,8 +16,9 @@ import java.util.Date;
 @Entity
 @Data
 @Table(
+        name = "eetu_exam_record",
         indexes = {
-                @Index(name = "idx_title", columnList = "userId,type,title"),
+                @Index(name = "idx_title", columnList = "userId,title"),
         })
 public class ExamRecordEntity {
 
@@ -27,9 +30,17 @@ public class ExamRecordEntity {
 
     private String userName;
     /**
-     * 试卷类型
+     * 题目数量
      */
-    private Integer type;
+    private Integer titleNum;
+    /**
+     * 试卷包含分类
+     */
+    private Integer[] categories;
+    /**
+     * 试卷题型
+     */
+    private Integer[] types;
     /**
      * 试卷id
      */
@@ -37,9 +48,19 @@ public class ExamRecordEntity {
     /**
      * 试卷标题
      */
-    private Long title ;
-
-    private String errorQuestions;
+    private String title ;
+    /**
+     * 错题序号
+     */
+    private Integer[] errorQuestionSeqs;
+    /**
+     * 错题id，对应序号中的顺序
+     */
+    private Long[] errorQuestions;
+    /**
+     * 错误答案，对应序号中的顺序
+     */
+    private String[] errorAnswers;
     /**
      * 得分
      */
@@ -47,7 +68,7 @@ public class ExamRecordEntity {
     /**
      * 开始时间
      */
-    private Date beginTime;
+    private Date beginTime = new Date();
     /**
      * 完成时间
      */
@@ -55,7 +76,7 @@ public class ExamRecordEntity {
     /**
      * 状态
      */
-    private Integer status;
+    private Integer status = ExamStatusEnum.UNFINISHED.getCode();
 
 
 }

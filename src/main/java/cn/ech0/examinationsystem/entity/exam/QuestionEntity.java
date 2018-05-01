@@ -16,6 +16,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(
+        name = "eetu_question",
         uniqueConstraints = {
                 @UniqueConstraint(name = "idx_q", columnNames = {"userId", "type", "title"}),
                 // 同一道题目仅可以克隆一次

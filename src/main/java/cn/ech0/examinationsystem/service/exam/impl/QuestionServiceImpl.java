@@ -37,9 +37,22 @@ import static cn.ech0.examinationsystem.util.DateUtil.getCurrentDate;
  */
 @Service
 @Slf4j
-public class QuestionServiceImpl implements IQuestionService{
+public class QuestionServiceImpl implements IQuestionService {
     @Autowired
     private QuestionDao questionDao;
+
+    /**
+     * @param questionId
+     * @return
+     */
+    @Override
+    public QuestionDTO findOne(Long questionId) {
+        QuestionEntity questionEntity = questionDao.findOne(questionId);
+        if (questionEntity == null) {
+            return null;
+        }
+        return QuestionEntityConvertor.convertoQuestionDTO(questionEntity);
+    }
 
     /**
      * 克隆题目
@@ -65,7 +78,7 @@ public class QuestionServiceImpl implements IQuestionService{
                     "请不要克隆自己的题目 ！");
         }
         QuestionEntity questionEntity = new QuestionEntity();
-        BeanUtils.copyProperties(origin,questionEntity);
+        BeanUtils.copyProperties(origin, questionEntity);
         questionEntity.setUserId(userId);
         questionEntity.setUserName(userName);
         questionEntity.setCloneFrom(questionId);
@@ -137,13 +150,14 @@ public class QuestionServiceImpl implements IQuestionService{
 
     /**
      * 添加题目
+     *
      * @param userId
      * @param userName
      * @param questionEntity
      * @return
      */
     @Override
-    public QuestionDTO add(String userId,String userName, QuestionEntity questionEntity) {
+    public QuestionDTO add(String userId, String userName, QuestionEntity questionEntity) {
         ResultDTO<String> resultDTO = QuestionValidator.check(questionEntity);
         if (!resultDTO.isSuccess()) {
             throw new BaseServerException(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(), resultDTO.getData());
@@ -163,7 +177,7 @@ public class QuestionServiceImpl implements IQuestionService{
     /**
      * 分页查找属于该用户的所有题目
      *
-     * @param userId ! necessary
+     * @param userId   ! necessary
      * @param category
      * @param type
      * @param pageNum
@@ -171,8 +185,8 @@ public class QuestionServiceImpl implements IQuestionService{
      * @return
      */
     @Override
-    public QuestionWrapper findQuestionsByUserId(String userId, Integer category, Integer type,Integer pageNum, Integer pageSize) {
-        Specification<QuestionEntity> specification  =
+    public QuestionWrapper findQuestionsByUserId(String userId, Integer category, Integer type, Integer pageNum, Integer pageSize) {
+        Specification<QuestionEntity> specification =
                 (root, query, cb) -> {
                     List<Predicate> predicates = new LinkedList<>();
                     // userId
@@ -203,7 +217,7 @@ public class QuestionServiceImpl implements IQuestionService{
         Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
         Pageable pageable = new PageRequest(pageNum - 1, pageNum, sort);
 
-        Page<QuestionEntity> page =  questionDao.findAll(specification, pageable);
+        Page<QuestionEntity> page = questionDao.findAll(specification, pageable);
         List<QuestionEntity> questionEntities = page.getContent();
         List<QuestionDTO> questionDTOList = new ArrayList<>(pageSize);
         questionEntities.forEach(questionEntity -> {
@@ -220,6 +234,7 @@ public class QuestionServiceImpl implements IQuestionService{
     /**
      * 给定条件分页模糊搜索题目
      * 按照错误次数以及使用次数降序
+     *
      * @param keyword
      * @param category
      * @param type
@@ -229,7 +244,7 @@ public class QuestionServiceImpl implements IQuestionService{
      */
     @Override
     public QuestionWrapper searchQuestions(String keyword, Integer category, Integer type, Integer pageNum, Integer pageSize) {
-        Specification<QuestionEntity> specification  =
+        Specification<QuestionEntity> specification =
                 (root, query, cb) -> {
                     List<Predicate> predicates = new LinkedList<>();
                     // status
@@ -240,7 +255,7 @@ public class QuestionServiceImpl implements IQuestionService{
                     if (!StringUtils.isEmpty(keyword)) {
                         // title
                         Path<String> $title = root.get("title");
-                        Predicate _title = cb.like($title, "%"+keyword+"%");
+                        Predicate _title = cb.like($title, "%" + keyword + "%");
                         predicates.add(_title);
                     }
                     if (category != null) {
@@ -262,7 +277,7 @@ public class QuestionServiceImpl implements IQuestionService{
         sort = sort.and(new Sort(Sort.Direction.DESC, "useTimes"));
 
         Pageable pageable = new PageRequest(pageNum - 1, pageNum, sort);
-        Page<QuestionEntity> page =  questionDao.findAll(specification, pageable);
+        Page<QuestionEntity> page = questionDao.findAll(specification, pageable);
         List<QuestionEntity> questionEntities = page.getContent();
         List<QuestionDTO> questionDTOList = new ArrayList<>(pageSize);
         questionEntities.forEach(questionEntity -> {

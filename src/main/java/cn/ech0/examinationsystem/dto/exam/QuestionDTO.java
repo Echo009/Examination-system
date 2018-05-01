@@ -18,6 +18,10 @@ public class QuestionDTO {
      * 题目序号
      */
     private Integer seq;
+    /**
+     * 分值
+     */
+    private Integer grade;
 
     private Integer category;
 
@@ -26,8 +30,14 @@ public class QuestionDTO {
     private String title;
 
     private String choices;
-
+    /**
+     * 正确答案
+     */
     private String answer;
+    /**
+     * 错误答案
+     */
+    private String errorAnswer;
 
     private String titleImgs;
 

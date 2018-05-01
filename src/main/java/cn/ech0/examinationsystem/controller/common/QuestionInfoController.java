@@ -1,6 +1,7 @@
 package cn.ech0.examinationsystem.controller.common;
 
 import cn.ech0.examinationsystem.controller.BaseController;
+import cn.ech0.examinationsystem.dto.exam.QuestionDTO;
 import cn.ech0.examinationsystem.response.BaseResponse;
 import cn.ech0.examinationsystem.service.exam.IQuestionService;
 import cn.ech0.examinationsystem.wrapper.QuestionWrapper;
@@ -35,6 +36,11 @@ public class QuestionInfoController extends BaseController {
 
        QuestionWrapper questionWrapper = iQuestionService.searchQuestions(keyWord, category, type, pageNum, pageSize);
         return new BaseResponse(true, questionWrapper);
+    }
+    @RequestMapping("/find")
+    public BaseResponse find(Long questionId) {
+        QuestionDTO questionDTO = iQuestionService.findOne(questionId);
+        return new BaseResponse(true, questionDTO);
     }
 
 }

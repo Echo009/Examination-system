@@ -13,14 +13,12 @@ import cn.ech0.examinationsystem.exception.BaseServerException;
 import cn.ech0.examinationsystem.service.exam.IExaminationPaperService;
 import cn.ech0.examinationsystem.setting.ExamPreference;
 import cn.ech0.examinationsystem.util.DateUtil;
+import cn.ech0.examinationsystem.util.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -99,6 +97,7 @@ public class ExaminationPaperServiceImpl implements IExaminationPaperService {
         examinationPaperEntity.setCategories(categories);
         Integer[] _types = types.toArray(new Integer[]{});
         examinationPaperEntity.setTypes(_types);
+        examinationPaperEntity.setTitle("System_"+ KeyUtil.genUniqueKey());
         examinationPaperEntity = examinationPaperDao.saveAndFlush(examinationPaperEntity);
 
         return ExaminationPaperEntityConvertor.toExaminationPaperDTO(examinationPaperEntity);
@@ -108,13 +107,15 @@ public class ExaminationPaperServiceImpl implements IExaminationPaperService {
      * 指定题目以及分数生成试卷
      *
      * @param userId
+     * @param userName
      * @param title
      * @param questions
      * @param grades
+     * @param duration
      * @return
      */
     @Override
-    public ExaminationPaperDTO addExaminationPaper(String userId, String title, Long[] questions, Integer[] grades) {
+    public ExaminationPaperDTO addExaminationPaper(String userId,String userName, String title, Long[] questions, Integer[] grades,Integer duration) {
 
         List<QuestionEntity> questionEntities = questionDao.findAllQuestionsInList(Arrays.asList(questions));
         // sort
@@ -132,7 +133,8 @@ public class ExaminationPaperServiceImpl implements IExaminationPaperService {
 
         ExaminationPaperEntity examinationPaperEntity = new ExaminationPaperEntity();
         examinationPaperEntity.setCreateTime(DateUtil.getCurrentDate());
-        examinationPaperEntity.setUserId(userId);
+        examinationPaperEntity.setCreatorId(userId);
+        examinationPaperEntity.setCreatorName(userName);
         examinationPaperEntity.setTitle(title);
         examinationPaperEntity.setTitleNum(questionEntities.size());
         examinationPaperEntity.setTypes(types.toArray(new Integer[]{}));
@@ -140,6 +142,7 @@ public class ExaminationPaperServiceImpl implements IExaminationPaperService {
         examinationPaperEntity.setQuestions(questionIds);
         examinationPaperEntity.setAnswers(answers);
         examinationPaperEntity.setGrades(grades);
+        examinationPaperEntity.setMaxExamDuration(duration);
 
         examinationPaperEntity = examinationPaperDao.saveAndFlush(examinationPaperEntity);
         return ExaminationPaperEntityConvertor.toExaminationPaperDTO(examinationPaperEntity);

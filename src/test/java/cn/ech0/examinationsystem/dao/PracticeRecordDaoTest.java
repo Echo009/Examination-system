@@ -20,7 +20,7 @@ public class PracticeRecordDaoTest {
     private PracticeRecordDao practiceRecordDao;
     @Test
     public void testFindErrorQuestions(){
-        System.out.println(practiceRecordDao.findAllErrorQuestions("1"));
+
     }
 
 }
