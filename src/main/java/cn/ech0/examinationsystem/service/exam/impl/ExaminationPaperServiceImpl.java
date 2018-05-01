@@ -13,6 +13,7 @@ import cn.ech0.examinationsystem.exception.BaseServerException;
 import cn.ech0.examinationsystem.service.exam.IExaminationPaperService;
 import cn.ech0.examinationsystem.setting.ExamPreference;
 import cn.ech0.examinationsystem.util.DateUtil;
+import cn.ech0.examinationsystem.util.ExamPaperUtil;
 import cn.ech0.examinationsystem.util.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,9 +95,9 @@ public class ExaminationPaperServiceImpl implements IExaminationPaperService {
         examinationPaperEntity.setCreateTime(DateUtil.getCurrentDate());
         examinationPaperEntity.setQuestions(questions);
         examinationPaperEntity.setAnswers(answers);
-        examinationPaperEntity.setCategories(categories);
+        examinationPaperEntity.setCategories(ExamPaperUtil.convertoCategoryString(categories));
         Integer[] _types = types.toArray(new Integer[]{});
-        examinationPaperEntity.setTypes(_types);
+        examinationPaperEntity.setTypes(ExamPaperUtil.convertoTypeString(_types));
         examinationPaperEntity.setTitle("System_"+ KeyUtil.genUniqueKey());
         examinationPaperEntity = examinationPaperDao.saveAndFlush(examinationPaperEntity);
 
@@ -137,8 +138,10 @@ public class ExaminationPaperServiceImpl implements IExaminationPaperService {
         examinationPaperEntity.setCreatorName(userName);
         examinationPaperEntity.setTitle(title);
         examinationPaperEntity.setTitleNum(questionEntities.size());
-        examinationPaperEntity.setTypes(types.toArray(new Integer[]{}));
-        examinationPaperEntity.setCategories(categories.toArray(new Integer[]{}));
+        examinationPaperEntity.setTypes(
+                ExamPaperUtil.convertoTypeString(types.toArray(new Integer[]{})));
+        examinationPaperEntity.setCategories(
+                ExamPaperUtil.convertoCategoryString(categories.toArray(new Integer[]{})));
         examinationPaperEntity.setQuestions(questionIds);
         examinationPaperEntity.setAnswers(answers);
         examinationPaperEntity.setGrades(grades);

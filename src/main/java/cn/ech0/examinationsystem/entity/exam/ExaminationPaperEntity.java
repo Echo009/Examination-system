@@ -40,12 +40,14 @@ public class ExaminationPaperEntity {
     private Integer titleNum;
     /**
      * 试卷包含分类
+     * 形如 "计算机网络-操作系统"
      */
-    private Integer[] categories;
+    private String categories;
     /**
      * 试卷题型
+     * 形如 "计算机网络-操作系统"
      */
-    private Integer[] types;
+    private String types;
     /**
      * 试卷题目
      */
