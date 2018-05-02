@@ -35,6 +35,8 @@ public class ChoiceAnswerValidtor {
         }
         if (isSingle && answer.length != 1) {
             return new ResultDTO(false, "正确答案选项格式不对，单选题正确答案应只有一个!");
+        }else if(answer.length < 1) {
+            return new ResultDTO(false, "正确答案选项格式不对，多选题正确答案至少有一个!");
         }
         // 排序
         Arrays.sort(answer);

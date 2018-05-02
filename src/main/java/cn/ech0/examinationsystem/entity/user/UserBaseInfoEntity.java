@@ -46,6 +46,10 @@ public class UserBaseInfoEntity {
 
     private Integer sex = UserSexEnum.UNKNOW.getCode();
 
+    private String addr = "可能是天上来的小仙女吧！";
+
+    private String school;
+
     private Integer roleCode = RoleCodeEnum.USER.getCode();
 
 }
