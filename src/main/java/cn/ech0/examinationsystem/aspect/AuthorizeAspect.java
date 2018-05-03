@@ -33,7 +33,8 @@ public class AuthorizeAspect {
     private StringRedisTemplate redisTemplate;
 
     @Pointcut("execution( public *  cn.ech0.examinationsystem.controller.admin.*.*(..))" +
-            "|| execution(public * cn.ech0.examinationsystem.controller.user.*.*(..))")
+            "|| execution(public * cn.ech0.examinationsystem.controller.user.*.*(..)) ||" +
+            "execution(public * cn.ech0.examinationsystem.controller.exam.*.*(..))")
     public void verify(){
 
     }

@@ -38,7 +38,7 @@ public class QuestionInfoController extends BaseController {
         return new BaseResponse(true, questionWrapper);
     }
     @RequestMapping("/find")
-    public BaseResponse find(Long questionId) {
+    public BaseResponse find(@RequestParam Long questionId) {
         QuestionDTO questionDTO = iQuestionService.findOne(questionId);
         return new BaseResponse(true, questionDTO);
     }

@@ -20,7 +20,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(
-        name = "eetu_exam_paper",
+        name = "eetu_user",
         uniqueConstraints = {
                 @UniqueConstraint(name = "idx_id", columnNames = {"userId"}),
                 @UniqueConstraint(name = "idx_name", columnNames = {"userName"}),

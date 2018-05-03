@@ -215,7 +215,7 @@ public class QuestionServiceImpl implements IQuestionService {
                 };
         // 按照修改时间降序
         Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
-        Pageable pageable = new PageRequest(pageNum - 1, pageNum, sort);
+        Pageable pageable = new PageRequest(pageNum - 1, pageSize, sort);
 
         Page<QuestionEntity> page = questionDao.findAll(specification, pageable);
         List<QuestionEntity> questionEntities = page.getContent();
@@ -276,7 +276,7 @@ public class QuestionServiceImpl implements IQuestionService {
         Sort sort = new Sort(Sort.Direction.DESC, "errorTimes");
         sort = sort.and(new Sort(Sort.Direction.DESC, "useTimes"));
 
-        Pageable pageable = new PageRequest(pageNum - 1, pageNum, sort);
+        Pageable pageable = new PageRequest(pageNum - 1, pageSize, sort);
         Page<QuestionEntity> page = questionDao.findAll(specification, pageable);
         List<QuestionEntity> questionEntities = page.getContent();
         List<QuestionDTO> questionDTOList = new ArrayList<>(pageSize);

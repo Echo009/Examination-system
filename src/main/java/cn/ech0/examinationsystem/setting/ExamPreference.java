@@ -9,6 +9,11 @@ import lombok.Data;
  */
 @Data
 public class ExamPreference {
+    public ExamPreference(boolean onlyError, boolean onlyNew) {
+        this.onlyError = onlyError;
+        this.onlyNew = onlyNew;
+    }
+
     /**
      * 仅含错题
      */

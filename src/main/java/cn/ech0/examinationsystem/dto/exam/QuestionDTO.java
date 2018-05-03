@@ -1,5 +1,6 @@
 package cn.ech0.examinationsystem.dto.exam;
 
+import cn.ech0.examinationsystem.structure.Choice;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
@@ -29,7 +30,7 @@ public class QuestionDTO {
 
     private String title;
 
-    private String choices;
+    private Choice choices;
     /**
      * 正确答案
      */
@@ -43,6 +44,9 @@ public class QuestionDTO {
 
     private String answerImgs;
 
+    private Long useTimes;
+
+    private Long errorTimes;
     /**
      * 错误率 保留两位
      */

@@ -34,7 +34,7 @@ public interface PracticeRecordDao extends JpaRepository<PracticeRecordEntity,Lo
      * @return
      */
     @Query("select distinct p.questionId from PracticeRecordEntity p " +
-            "where p.userId = :userId and p.category in :categories and p.errorTimes > 0")
+            "where p.userId = :userId and p.category in :categories and p.errorTimes > 0 ")
     List<Long> findAllErrorQuestionsWithInCategories(@Param("userId") String userId,@Param("categories") Integer[] categories);
 
     /**
