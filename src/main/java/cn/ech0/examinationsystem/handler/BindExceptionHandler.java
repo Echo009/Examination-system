@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Email  : ech0.extreme@foxmail.com
  * Time   : 04/30/2018 03:17 PM
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class BindExceptionHandler {
     @ExceptionHandler(value = BindException.class)
     @ResponseBody

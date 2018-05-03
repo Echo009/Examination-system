@@ -155,7 +155,7 @@ public class ExamServiceImpl implements IExamService {
         List<AnswerItem> answerItems = examAnswer.getAnswers();
         List<ExamResultWrapper.GradeItem> gradeResults = new ArrayList<>(answerItems.size());
         // 总分
-        Integer[] totalGrade = new Integer[1];
+        int[] totalGrade = new int[1];
         // 错题序号
         Integer[] errorQuestionSeqs = new Integer[answerItems.size()];
         // 错误题目ID
