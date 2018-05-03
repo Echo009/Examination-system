@@ -76,6 +76,9 @@ public class ExaminationPaperServiceImpl implements IExaminationPaperService {
             questionIdList = errorQuestions.stream().limit(titleNum).collect(Collectors.toList());
         } else {
             List<Long> questionIds = questionDao.findAllQuestions(categories);
+            if (questionIds.size() < titleNum) {
+                throw new BaseServerException(ResponseCodeEnum.ERROR.getCode(), "符合条件的题目数量不够组卷！");
+            }
             questionIdList = questionIds.stream().collect(Collectors.toList());
         }
         List<QuestionEntity> questionEntities = questionDao.findAllQuestionsInList(questionIdList);

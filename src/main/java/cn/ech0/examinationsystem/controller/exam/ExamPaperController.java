@@ -35,12 +35,12 @@ public class ExamPaperController extends BaseController {
      * @return
      */
     @RequestMapping("/generate")
-    public BaseResponse generateExamPaper(@RequestParam(defaultValue = "8") Integer titleNum,
+    public BaseResponse generateExamPaper(@RequestParam(defaultValue = "5") Integer titleNum,
                                           Integer[] categories,
                                           boolean onlyError,
                                           boolean onlyNew) {
 
-        if (categories == null) {
+        if (categories == null || categories.length == 0) {
             categories = ExamConstant.ALL_CATEGORY;
         }
         ExamPreference examPreference = new ExamPreference(onlyError, onlyNew);
