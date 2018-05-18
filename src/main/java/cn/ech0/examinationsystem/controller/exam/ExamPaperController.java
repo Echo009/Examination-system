@@ -28,6 +28,7 @@ public class ExamPaperController extends BaseController {
 
     /**
      * 返回试卷
+     *
      * @param titleNum
      * @param categories
      * @param onlyError
@@ -45,9 +46,19 @@ public class ExamPaperController extends BaseController {
         }
         ExamPreference examPreference = new ExamPreference(onlyError, onlyNew);
 
-        ExaminationPaperDTO examinationPaperDTO = examinationPaperService.genExaminaionPaper(getCurrentUserInfo().getUserId(),categories,titleNum,examPreference);
+        ExaminationPaperDTO examinationPaperDTO = examinationPaperService.genExaminaionPaper(getCurrentUserInfo().getUserId(), categories, titleNum, examPreference);
 
         return new BaseResponse(true, examinationPaperDTO);
+
+    }
+
+    @RequestMapping("/custom")
+    public BaseResponse customExamPaper(
+            Integer titleNum,
+            Long[] questions,
+            String examPaperTitle) {
+
+        return new BaseResponse(true, null);
 
     }
 

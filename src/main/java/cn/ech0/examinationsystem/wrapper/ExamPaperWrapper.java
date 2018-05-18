@@ -14,7 +14,6 @@ import java.util.List;
 @Data
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ExamPaperWrapper {
-
     private Long examRecordId;
     /**
      * 试卷id
@@ -48,7 +47,5 @@ public class ExamPaperWrapper {
     private Integer maxExamDuration ;
 
     private List<QuestionDTO> questions;
-
-
 
 }

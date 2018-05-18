@@ -58,5 +58,19 @@ public class ExamController extends BaseController {
 
     }
 
+    @RequestMapping("/records")
+    public BaseResponse records(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                              @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
+// TODO: 05/18/2018
+        return new BaseResponse(true, null);
 
+    }
+
+    @RequestMapping("/detail")
+    public BaseResponse detail(Long examRecordId) {
+// TODO: 05/18/2018
+        return new BaseResponse(true, null);
+
+    }
+    
 }

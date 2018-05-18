@@ -44,16 +44,13 @@ public class AuthorizeAspect {
         ServletRequestAttributes requestAttributes =
                 (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
-
         // 校验cookie
         Cookie cookie = CookiesUtil.get(request, CookieConstant.TOKEN);
-
         if(cookie==null){
             log.warn("【登录校验】token cookie不存在");
             throw new BaseServerException(ResponseCodeEnum.NO_LOGIN);
         }
         // 查询token有效性
-
         String tokenValue = redisTemplate.opsForValue().get(String.format(RedisConstant.TOKEN_PREFIX, cookie.getValue()));
         if(StringUtils.isEmpty(tokenValue)){
             log.warn("【登录校验】无效token");

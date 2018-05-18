@@ -50,6 +50,8 @@ public class UserBaseInfoEntity {
 
     private String school;
 
+    private String resumeImg;
+
     private Integer roleCode = RoleCodeEnum.USER.getCode();
 
 }

@@ -15,10 +15,6 @@ import java.util.List;
  */
 public interface PracticeRecordDao extends JpaRepository<PracticeRecordEntity,Long>,JpaSpecificationExecutor<PracticeRecordEntity>{
 
-
-
-
-
     /**
      * 查询特定记录
      * @param userId

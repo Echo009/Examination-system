@@ -30,6 +30,14 @@ public class QuestionController extends BaseController {
     @Autowired
     private IQuestionService iQuestionService;
 
+
+    @RequestMapping("/errorQuestions")
+    public BaseResponse errorQuestions( @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                        @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
+// TODO: 05/18/2018
+        return BaseResponse.SUCCESS;
+    }
+
     @RequestMapping("/delete")
     public BaseResponse delete(Long questionId) {
         iQuestionService.delete(getCurrentUserInfo().getUserId(), questionId);
