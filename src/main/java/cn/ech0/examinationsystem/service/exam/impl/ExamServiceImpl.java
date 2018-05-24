@@ -224,7 +224,7 @@ public class ExamServiceImpl implements IExamService {
             examRecordEntity.setGrade(totalGrade[0]+"");
         }
         else {
-            examRecordEntity.setGrade(GradeUtil.formatGrade(totalGrade[0]/examinationPaperEntity.getTitleNum()));
+            examRecordEntity.setGrade(GradeUtil.formatGrade(((double) totalGrade[0])/examinationPaperEntity.getTitleNum()*100));
         }
         examRecordEntity.setErrorQuestions(errorQuestionIds);
         examRecordEntity.setErrorQuestionSeqs(errorQuestionSeqs);
